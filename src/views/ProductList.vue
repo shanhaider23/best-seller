@@ -24,7 +24,7 @@
 
 <script lang="ts">
 	import { defineComponent } from 'vue';
-	import { mapState } from 'vuex';
+	import { mapState, mapGetters } from 'vuex';
 	import ProductCard from '../components/ProductCard.vue';
 
 	export default defineComponent({
@@ -35,6 +35,9 @@
 		computed: {
 			...mapState({
 				products: (state: any) => state.products.products,
+			}),
+			...mapGetters('products', {
+				mainCategories: 'vuexMainCategories', // Access `vuexMainCategories` from the `products` module
 			}),
 		},
 		methods: {

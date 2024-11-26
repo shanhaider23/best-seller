@@ -1,24 +1,42 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import AppLayout from '../ui/AppLayout.vue';
 import ProductList from '@/views/ProductList.vue';
 import ProductDetail from '@/views/ProductDetail.vue';
+// import PageNotFound from '@/views/PageNotFound.vue';
 
-const routes = [
+const routes: Array<RouteRecordRaw> = [
 	{
 		path: '/',
-		name: 'ProductList',
-		component: ProductList, // The main product listing page
+		component: AppLayout, // AppLayout wraps all of the following routes
+		children: [
+			{
+				path: '',
+				redirect: '/products', // Redirect to products page
+			},
+			{
+				path: 'products',
+				name: 'ProductList',
+				component: ProductList,
+			},
+			{
+				path: 'product/:id',
+				name: 'ProductDetail',
+				component: ProductDetail,
+				props: true, // Pass route params as props
+			},
+		],
 	},
-	{
-		path: '/product/:id', // Dynamic route for the product detail page
-		name: 'ProductDetail',
-		component: ProductDetail,
-		props: true, // Allows the use of route params as props
-	},
+
+	// {
+	// 	path: '/:pathMatch(.*)*', // Catch-all route for 404
+	// 	name: 'PageNotFound',
+	// 	component: PageNotFound,
+	// },
 ];
 
 const router = createRouter({
 	history: createWebHistory(),
-	routes, // Define the routes for the application
+	routes,
 });
 
 export default router;
