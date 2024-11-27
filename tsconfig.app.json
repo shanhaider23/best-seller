@@ -1,26 +1,45 @@
 {
-  "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "skipLibCheck": true,
+	"compilerOptions": {
+		"tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+		"target": "ES2020",
+		"useDefineForClassFields": true,
+		"module": "ESNext",
+		"lib": ["ES2020", "DOM", "DOM.Iterable"],
+		"skipLibCheck": true,
+		"moduleResolution": "Bundler",
+		"allowImportingTsExtensions": true,
+		"isolatedModules": true,
+		"moduleDetection": "force",
+		"noEmit": true,
+		"jsx": "preserve",
 
-    /* Bundler mode */
-    "moduleResolution": "Bundler",
-    "allowImportingTsExtensions": true,
-    "isolatedModules": true,
-    "moduleDetection": "force",
-    "noEmit": true,
-    "jsx": "preserve",
+		/* Linting */
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUncheckedSideEffectImports": true,
 
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
-  },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
+		/* Path aliases */
+		"baseUrl": ".", // Set the base directory
+		"paths": {
+			"@/*": ["src/*"], // Alias for 'src' folder
+			"@/types": ["src/types"], // Alias for 'src/types' folder
+			"@/utils/*": ["src/utils/*"], // Alias for 'src/utils'
+			"@/components/*": ["src/components/*"], // Alias for 'src/components'
+			"@/views/*": ["src/views/*"], // Alias for 'src/views'
+			"@/store/*": ["src/store/*"], // Alias for 'src/store'
+			"@/router/*": ["src/router/*"] // Alias for 'src/router'
+		},
+
+		/* Advanced Vue Settings */
+		"vueCompilerOptions": {
+			"target": 2, // Set to Vue 3
+			"experimentalCompatMode": 2 // Enable compatibility mode for Vue 2/3
+		}
+	},
+
+	"include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
+
+	"exclude": ["node_modules", "dist"]
 }

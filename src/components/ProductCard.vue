@@ -33,5 +33,5 @@
 </script>
 
 <style scoped lang="scss">
-	@import '../scss/ProductCard.scss';
+	@use '../scss/ProductCard.scss';
 </style>

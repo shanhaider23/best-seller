@@ -67,5 +67,5 @@
 </script>
 
 <style scoped lang="scss">
-	@import '../scss/productImage.scss';
+	@use '../scss/productImage.scss';
 </style>

@@ -17,5 +17,5 @@
 </script>
 
 <style scoped lang="scss">
-	@import '../scss/ProductPrice.scss';
+	@use '../scss/ProductPrice.scss';
 </style>
