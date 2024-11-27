@@ -29,10 +29,7 @@ const products: Module<ProductsState, any> = {
 		getPromotions: (state) => state.promotions,
 		// Get subcategories for the selected category
 		vuexSubcategories: (state) => {
-			const selectedCategory = state.categories.find(
-				(category: Category) => category.id === state.selectedCategoryId
-			);
-			return selectedCategory?.categories || [];
+			return state.selectedCategoryId;
 		},
 	},
 	actions: {
@@ -40,7 +37,7 @@ const products: Module<ProductsState, any> = {
 			try {
 				// Simulating an API call to fetch products data from the local JSON
 				const response = await getApi('/data/data.json'); // Ensure the path is correct
-				console.log(response);
+				console.log(response?.data.categories.categories);
 				// Check if the response is valid
 
 				commit('SET_PRODUCTS', response?.data?.products || []);
@@ -50,8 +47,8 @@ const products: Module<ProductsState, any> = {
 				console.error('Error fetching products:', error);
 			}
 		},
-		setSelectedCategory({ commit }, categoryId: string) {
-			commit('SET_SELECTED_CATEGORY', categoryId);
+		setSelectedCategory({ commit }, category) {
+			commit('SET_SELECTED_CATEGORY', category);
 		},
 	},
 	mutations: {
@@ -66,8 +63,8 @@ const products: Module<ProductsState, any> = {
 			state.promotions = promotions;
 		},
 		// Update selected category
-		SET_SELECTED_CATEGORY(state, categoryId: string) {
-			state.selectedCategoryId = categoryId;
+		SET_SELECTED_CATEGORY(state, category) {
+			state.selectedCategoryId = category.id;
 		},
 	},
 };

@@ -17,38 +17,40 @@
 
 <script lang="ts">
 	import { defineComponent } from 'vue';
-	import { mapActions } from 'vuex';
+	import { mapActions, mapGetters } from 'vuex';
 
 	export default defineComponent({
 		name: 'Header',
 		data() {
 			return {
-				allCategories: [] as any[], // Store top-level categories as an array
+				allCategories: [] as any[], // Store top-level categories
 			};
 		},
 		computed: {
-			// Return all categories as they are already filtered by parent_category_id === "root"
+			// Filter top-level categories (parent_category_id === "root")
 			filteredCategories() {
 				return this.allCategories;
 			},
+			...mapGetters('products', {
+				categoriesId: 'vuexSubcategories', // Access `vuexMainCategories` from the `products` module
+			}),
 		},
 		methods: {
 			...mapActions('products', {
-				fetchCategoriesFromStore: 'fetchProducts', // Map the Vuex action
+				fetchCategoriesFromStore: 'fetchProducts', // Correctly map `fetchProducts` action
+				selectCategoryInStore: 'setSelectedCategory', // Correctly map Vuex action to `selectCategoryInStore`
 			}),
 			async fetchCategories() {
 				try {
 					await this.fetchCategoriesFromStore();
-					// Extract categories from the Vuex state
 					const rootCategory = this.$store.state.products.categories;
 
-					// Validate that `rootCategory` is an object and extract its `categories` property
 					if (
 						rootCategory &&
 						rootCategory.categories &&
 						Array.isArray(rootCategory.categories)
 					) {
-						this.allCategories = rootCategory.categories; // Set the top-level categories
+						this.allCategories = rootCategory.categories;
 					} else {
 						console.error('Invalid rootCategory structure:', rootCategory);
 					}
@@ -57,8 +59,9 @@
 				}
 			},
 			selectCategory(category) {
-				console.log('Selected Category:', category);
-				// Handle category selection (e.g., update sidebar or Vuex state)
+				// Use the correctly mapped Vuex action to select a category
+
+				this.selectCategoryInStore(category);
 			},
 		},
 		async mounted() {

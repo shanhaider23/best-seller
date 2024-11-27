@@ -1,56 +1,164 @@
 <template>
-	<aside class="sidebar">
-		<h3>Subcategories</h3>
-		<ul>
-			<li v-for="subcategory in subcategories" :key="subcategory.id">
-				<router-link :to="`/category/${subcategory.id}`" class="sidebar-link">
-					{{ subcategory.name.en || subcategory.name.dk }}
-				</router-link>
-			</li>
-		</ul>
-	</aside>
+	<header class="header">
+		<nav class="nav">
+			<ul>
+				<h1>Hello</h1>
+
+				<!-- Display the loaded categories -->
+				<div v-for="category in data" :key="category.id">
+					<div @click="selectCategory(category.id)">
+						<strong>{{ category.name.en }}</strong>
+					</div>
+
+					<!-- Display subcategories if available -->
+					<ul v-if="category.categories && category.categories.length > 0">
+						<li
+							v-for="subCategory in category.categories"
+							:key="subCategory.id"
+						>
+							<div @click="selectCategory(subCategory.id)">
+								{{ subCategory.name.en }}
+							</div>
+							<!-- Recursively display subcategories -->
+							<ul
+								v-if="
+									subCategory.categories && subCategory.categories.length > 0
+								"
+							>
+								<li
+									v-for="subSubCategory in subCategory.categories"
+									:key="subSubCategory.id"
+								>
+									<div @click="selectCategory(subSubCategory.id)">
+										{{ subSubCategory.name.en }}
+									</div>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</ul>
+		</nav>
+	</header>
 </template>
 
 <script lang="ts">
-	import { defineComponent } from 'vue';
 	import { mapGetters } from 'vuex';
 
-	export default defineComponent({
+	export default {
 		name: 'Sidebar',
+		data() {
+			return {
+				data: null,
+			};
+		},
 		computed: {
-			...mapGetters({
-				vuexMainCategories: 'vuexMainCategories', // Directly access getter without namespace
+			...mapGetters('products', {
+				categoriesId: 'vuexSubcategories',
+				mainCategories: 'vuexMainCategories',
 			}),
 		},
-	});
+		methods: {
+			triggerLoad() {
+				// Load the main categories from Vuex
+				this.data = this.mainCategories.categories;
+				console.log(this.data[0]);
+			},
+
+			selectCategory(categoryId: string) {
+				// Dispatch category ID to Vuex
+				this.$store.dispatch('products/setCategoryId', categoryId);
+				console.log(`Category selected: ${categoryId}`);
+			},
+		},
+		watch: {
+			categoriesId(oldValue, newValue) {
+				if (oldValue !== newValue) {
+					this.triggerLoad();
+				}
+			},
+		},
+	};
 </script>
 
 <style scoped>
 	.sidebar {
-		background-color: #34495e;
-		color: white;
+		background-color: #090909;
 		padding: 20px;
-		width: 250px;
-	}
-
-	h3 {
-		margin-bottom: 20px;
-		font-size: 18px;
-	}
-
-	ul {
-		list-style-type: none;
-		padding: 0;
 	}
 
 	.sidebar-link {
 		display: block;
 		padding: 8px 16px;
-		color: white;
+		color: black;
 		text-decoration: none;
 	}
 
 	.sidebar-link:hover {
-		background-color: #2c3e50;
+		background-color: #ddd;
 	}
 </style>
+
+<!-- <template>
+	<header class="header">
+		<nav class="nav">
+			<ul>
+				<h1>Hello</h1>
+
+				{{
+					data
+				}}
+			</ul>
+		</nav>
+	</header>
+</template>
+
+<script lang="ts">
+	import { mapGetters } from 'vuex';
+
+	export default {
+		name: 'Sidebar',
+		data() {
+			return {
+				data: null,
+			};
+		},
+		computed: {
+			...mapGetters('products', {
+				categoriesId: 'vuexSubcategories',
+				mainCategories: 'vuexMainCategories',
+			}),
+		},
+		methods: {
+			triggerLoad() {
+				this.data = this.mainCategories.categories;
+				console.log(this.data);
+			},
+		},
+		watch: {
+			categoriesId(oldValue, newValue) {
+				if (oldValue !== newValue) {
+					this.triggerLoad();
+				}
+			},
+		},
+	};
+</script>
+
+<style scoped>
+	.sidebar {
+		background-color: #090909;
+		padding: 20px;
+	}
+
+	.sidebar-link {
+		display: block;
+		padding: 8px 16px;
+		color: black;
+		text-decoration: none;
+	}
+
+	.sidebar-link:hover {
+		background-color: #ddd;
+	}
+</style> -->
