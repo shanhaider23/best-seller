@@ -1,45 +1,17 @@
 {
 	"compilerOptions": {
-		"tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-		"target": "ES2020",
-		"useDefineForClassFields": true,
-		"module": "ESNext",
-		"lib": ["ES2020", "DOM", "DOM.Iterable"],
-		"skipLibCheck": true,
-		"moduleResolution": "Bundler",
-		"allowImportingTsExtensions": true,
-		"isolatedModules": true,
-		"moduleDetection": "force",
-		"noEmit": true,
-		"jsx": "preserve",
-
-		/* Linting */
-		"strict": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"noFallthroughCasesInSwitch": true,
-		"noUncheckedSideEffectImports": true,
-
-		/* Path aliases */
-		"baseUrl": ".", // Set the base directory
+		"target": "ES2015", // Set target to ES2015 or later (ES2020, ESNext)
+		"lib": ["ES2015", "DOM"], // Add ES2015 to the lib array to include necessary type declarations
+		"baseUrl": "./src", // Set baseUrl to 'src' so that @ resolves to the 'src' folder
 		"paths": {
-			"@/*": ["src/*"], // Alias for 'src' folder
-			"@/types": ["src/types"], // Alias for 'src/types' folder
-			"@/utils/*": ["src/utils/*"], // Alias for 'src/utils'
-			"@/components/*": ["src/components/*"], // Alias for 'src/components'
-			"@/views/*": ["src/views/*"], // Alias for 'src/views'
-			"@/store/*": ["src/store/*"], // Alias for 'src/store'
-			"@/router/*": ["src/router/*"] // Alias for 'src/router'
+			"@/*": ["*"], // Maps @ to the src directory
+			"@/types/*": ["types/*"] // Maps @/types to src/types folder
 		},
-
-		/* Advanced Vue Settings */
-		"vueCompilerOptions": {
-			"target": 2, // Set to Vue 3
-			"experimentalCompatMode": 2 // Enable compatibility mode for Vue 2/3
-		}
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"resolveJsonModule": true,
+		"allowJs": true
 	},
-
-	"include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
-
-	"exclude": ["node_modules", "dist"]
+	"include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
 }

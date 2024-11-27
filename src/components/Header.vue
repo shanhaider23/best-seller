@@ -28,7 +28,7 @@
 <script lang="ts">
 	import { defineComponent } from 'vue';
 	import { mapActions, mapGetters } from 'vuex';
-	import { Category } from '@/types';
+	import { Category } from '../types/index';
 
 	export default defineComponent({
 		name: 'Header',

@@ -15,7 +15,7 @@
 	import { defineComponent } from 'vue';
 	import ProductImage from './ProductImage.vue';
 	import ProductPrice from './ProductPrice.vue';
-	import { Product } from '@/types';
+	import { Product } from '../types/index';
 
 	export default defineComponent({
 		name: 'ProductCard',

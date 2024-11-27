@@ -57,7 +57,7 @@
 <script lang="ts">
 	import { defineComponent } from 'vue';
 	import { mapGetters } from 'vuex';
-	import { Product } from '@/types';
+
 	import ProductImage from '../components/ProductImage.vue';
 
 	export default defineComponent({
