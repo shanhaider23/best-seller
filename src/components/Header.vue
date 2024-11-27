@@ -1,12 +1,20 @@
 <template>
 	<header class="header">
-		<div class="logo">
-			<h1>My Store</h1>
+		<div class="header__logo">
+			<img
+				src="../assets/logo.jpg"
+				alt="Product Image"
+				class="header__logo-image"
+			/>
 		</div>
-		<nav class="nav">
-			<ul>
-				<li v-for="category in filteredCategories" :key="category.id">
-					<button @click="selectCategory(category)" class="nav-link">
+		<nav class="header__nav">
+			<ul class="header__nav-list">
+				<li
+					class="header__nav-item"
+					v-for="category in filteredCategories"
+					:key="category.id"
+				>
+					<button @click="selectCategory(category)" class="header__nav-link">
 						{{ category.name.en || category.name.dk }}
 					</button>
 				</li>
@@ -23,22 +31,21 @@
 		name: 'Header',
 		data() {
 			return {
-				allCategories: [] as any[], // Store top-level categories
+				allCategories: [] as any[],
 			};
 		},
 		computed: {
-			// Filter top-level categories (parent_category_id === "root")
 			filteredCategories() {
 				return this.allCategories;
 			},
 			...mapGetters('products', {
-				categoriesId: 'vuexSubcategories', // Access `vuexMainCategories` from the `products` module
+				categoriesId: 'vuexSubcategories',
 			}),
 		},
 		methods: {
 			...mapActions('products', {
-				fetchCategoriesFromStore: 'fetchProducts', // Correctly map `fetchProducts` action
-				selectCategoryInStore: 'setSelectedCategory', // Correctly map Vuex action to `selectCategoryInStore`
+				fetchCategoriesFromStore: 'fetchProducts',
+				selectCategoryInStore: 'setSelectedCategory',
 			}),
 			async fetchCategories() {
 				try {
@@ -59,8 +66,6 @@
 				}
 			},
 			selectCategory(category) {
-				// Use the correctly mapped Vuex action to select a category
-
 				this.selectCategoryInStore(category);
 			},
 		},
@@ -70,30 +75,6 @@
 	});
 </script>
 
-<style scoped>
-	.header {
-		background-color: #2c3e50;
-		color: white;
-		padding: 10px 20px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	.nav {
-		display: flex;
-		gap: 20px;
-	}
-
-	.nav-link {
-		background: none;
-		border: none;
-		color: white;
-		font-size: 16px;
-		cursor: pointer;
-	}
-
-	.nav-link:hover {
-		text-decoration: underline;
-	}
+<style lang="scss" scoped>
+	@use '../scss/Header.scss';
 </style>

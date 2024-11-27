@@ -1,11 +1,8 @@
 <template>
-	<header class="header">
-		<nav class="nav">
-			<ul>
-				<h1>Hello</h1>
-
-				<!-- Display the loaded categories -->
-				<div v-for="category in data" :key="category.id">
+	<div>
+		<ul>
+			<div v-for="category in data" :key="category.id">
+				<div v-if="category.id === categoriesId">
 					<div @click="selectCategory(category.id)">
 						<strong>{{ category.name.en }}</strong>
 					</div>
@@ -37,13 +34,13 @@
 						</li>
 					</ul>
 				</div>
-			</ul>
-		</nav>
-	</header>
+			</div>
+		</ul>
+	</div>
 </template>
 
 <script lang="ts">
-	import { mapGetters } from 'vuex';
+	import { mapGetters, mapActions } from 'vuex';
 
 	export default {
 		name: 'Sidebar',
@@ -59,15 +56,18 @@
 			}),
 		},
 		methods: {
+			...mapActions('products', {
+				selectSubCategoryIdStore: 'setSelectedSubCategory', // Correctly map Vuex action to `selectCategoryInStore`
+			}),
 			triggerLoad() {
 				// Load the main categories from Vuex
 				this.data = this.mainCategories.categories;
-				console.log(this.data[0]);
+				//console.log(this.data[0]);
 			},
 
 			selectCategory(categoryId: string) {
 				// Dispatch category ID to Vuex
-				this.$store.dispatch('products/setCategoryId', categoryId);
+				this.selectSubCategoryIdStore(categoryId);
 				console.log(`Category selected: ${categoryId}`);
 			},
 		},

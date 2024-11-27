@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<h1 class="text-2xl font-bold mb-4">Product List</h1>
+		{{ subCategoriesId }}
 
 		<!-- Show loading message if products are not loaded -->
 
@@ -14,7 +15,7 @@
 			class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
 		>
 			<ProductCard
-				v-for="product in products"
+				v-for="product in filteredProducts"
 				:key="product.id"
 				:product="product"
 			/>
@@ -37,8 +38,19 @@
 				products: (state: any) => state.products.products,
 			}),
 			...mapGetters('products', {
-				mainCategories: 'vuexMainCategories', // Access `vuexMainCategories` from the `products` module
+				mainCategories: 'vuexMainCategories',
+				subCategoriesId: 'vuexSubcategoriesIds',
 			}),
+			filteredProducts() {
+				// If no category is selected, return all products
+				if (!this.subCategoriesId) {
+					return this.products;
+				}
+
+				return this.products.filter((product) =>
+					product.categories.includes(this.subCategoriesId)
+				);
+			},
 		},
 		methods: {
 			fetchProductsIfNeeded() {

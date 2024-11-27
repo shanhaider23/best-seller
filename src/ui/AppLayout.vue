@@ -1,11 +1,14 @@
 <template>
 	<div class="app-layout">
-		<Header />
-		<div class="main-content">
-			<Sidebar />
-			<main class="content-area">
+		<header class="app-layout__header">
+			<Header />
+		</header>
+		<div class="app-layout__main">
+			<aside class="app-layout__sidebar">
+				<Sidebar />
+			</aside>
+			<main class="app-layout__content">
 				<router-view />
-				<!-- This will render the matched route's component -->
 			</main>
 		</div>
 	</div>
@@ -24,19 +27,6 @@
 	};
 </script>
 
-<style scoped>
-	/* Add your styles here */
-	.app-layout {
-		display: flex;
-		flex-direction: column;
-	}
-
-	.main-content {
-		display: flex;
-	}
-
-	.content-area {
-		flex-grow: 1;
-		padding: 20px;
-	}
+<style lang="scss" scoped>
+	@use './AppLayout.scss';
 </style>

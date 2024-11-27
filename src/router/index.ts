@@ -11,7 +11,7 @@ const routes: Array<RouteRecordRaw> = [
 		children: [
 			{
 				path: '',
-				redirect: '/products', // Redirect to products page
+				redirect: '/products',
 			},
 			{
 				path: 'products',
@@ -22,7 +22,7 @@ const routes: Array<RouteRecordRaw> = [
 				path: 'product/:id',
 				name: 'ProductDetail',
 				component: ProductDetail,
-				props: true, // Pass route params as props
+				props: true,
 			},
 		],
 	},

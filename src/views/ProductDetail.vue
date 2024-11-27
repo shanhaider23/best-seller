@@ -1,31 +1,47 @@
 <template>
-	<div v-if="product">
-		<h1 class="text-3xl font-bold">{{ product.name.en }}</h1>
-		<div class="mt-4">
-			<img
-				:src="product.images[0]"
-				alt="Product Image"
-				class="w-64 h-64 object-cover rounded-md"
-			/>
-		</div>
-		<p class="mt-4">{{ product.description }}</p>
-		<p class="mt-2 text-green-500 text-lg font-semibold">
-			{{ product.price }} DKK
-		</p>
+	<div v-for="product in products" :key="product.id">
+		<div v-if="product.id === parseInt(productId)">
+			<!-- Product Name -->
+			<h1 class="text-3xl font-bold">
+				<span>{{ product.name.dk }}</span>
+				<span v-if="product.name.en" class="text-gray-500"
+					>/ {{ product.name.en }}</span
+				>
+			</h1>
+			<!-- Brand -->
+			<p class="mt-2 text-lg text-gray-600">
+				<b>Brand:</b> {{ product.brand }}
+			</p>
+			<!-- Product Images -->
+			<div class="mt-4"><ProductImage :src="product.images" /></div>
+			<p class="mt-4">
+				{{ product.description || 'No description available' }}
+			</p>
+			<!-- Price -->
+			<p class="mt-4 text-green-600 text-xl font-semibold">
+				<b>Price:</b> {{ product.price }} DKK
+			</p>
 
-		<!-- Show product variants if available -->
-		<div v-if="product.variant?.length" class="mt-4">
-			<h3 class="font-semibold">Variants:</h3>
-			<ul>
-				<li v-for="variant in product.variant" :key="variant.color">
-					{{ variant.color }} - {{ variant.size.join(', ') }}
-				</li>
-			</ul>
-		</div>
-	</div>
+			<!-- Stock -->
+			<p class="mt-2 text-gray-700">
+				<b>Stock:</b> {{ product.stock }} available
+			</p>
 
-	<div v-else>
-		<p>Loading product details...</p>
+			<!-- Variants -->
+			<div v-if="product.variant?.length" class="mt-6">
+				<h3 class="font-semibold text-lg">Variants:</h3>
+				<ul class="list-disc ml-4">
+					<li
+						v-for="variant in product.variant"
+						:key="variant.color"
+						class="mt-1 text-gray-700"
+					>
+						<b>Color:</b> {{ variant.color }} | <b>Sizes:</b>
+						{{ variant.size.join(', ') }} | <b>Stock:</b> {{ variant.stock }}
+					</li>
+				</ul>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -33,13 +49,17 @@
 	import { defineComponent } from 'vue';
 	import { mapGetters } from 'vuex';
 	import { Product } from '@/types';
+	import products from '../store/modules/products';
+	import ProductImage from '../components/ProductImage.vue';
 
 	export default defineComponent({
 		name: 'ProductDetail',
+		components: {
+			ProductImage,
+		},
 		computed: {
-			// Retrieve product by ID from Vuex store using the route params
 			...mapGetters({
-				product: 'products/getProductById',
+				products: 'products/getProductById',
 			}),
 			productId() {
 				return this.$route.params.id;

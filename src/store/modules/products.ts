@@ -13,16 +13,15 @@ const products: Module<ProductsState, any> = {
 		categories: [],
 		selectedCategoryId: null,
 		promotions: [],
+		selectedSubCategoryId: null,
 	}),
 	getters: {
-		getProductById: (state) => (id: number) => {
-			return state.products.find((product) => product.id === id);
-		},
-		getProductsByCategory: (state) => (categoryId: string) => {
-			return state.products.filter((product) =>
-				product.categories.includes(categoryId)
-			);
-		},
+		getProductById: (state) => state.products,
+		// getProductsByCategory: (state) => (categoryId: string) => {
+		// 	return state.products.filter((product) =>
+		// 		product.categories.includes(categoryId)
+		// 	);
+		// },
 		// Get all categories
 		vuexMainCategories: (state) => state.categories,
 		// Get promotions for display
@@ -31,13 +30,16 @@ const products: Module<ProductsState, any> = {
 		vuexSubcategories: (state) => {
 			return state.selectedCategoryId;
 		},
+		vuexSubcategoriesIds: (state) => {
+			return state.selectedSubCategoryId;
+		},
 	},
 	actions: {
 		async fetchProducts({ commit }) {
 			try {
 				// Simulating an API call to fetch products data from the local JSON
 				const response = await getApi('/data/data.json'); // Ensure the path is correct
-				console.log(response?.data.categories.categories);
+				console.log(response?.data.products);
 				// Check if the response is valid
 
 				commit('SET_PRODUCTS', response?.data?.products || []);
@@ -49,6 +51,11 @@ const products: Module<ProductsState, any> = {
 		},
 		setSelectedCategory({ commit }, category) {
 			commit('SET_SELECTED_CATEGORY', category);
+		},
+
+		setSelectedSubCategory({ commit }, categoryId) {
+			console.log('SET_SELECTED_SUB_CATEGORY', categoryId);
+			commit('SET_SELECTED_SUBCATEGORY', categoryId);
 		},
 	},
 	mutations: {
@@ -65,6 +72,9 @@ const products: Module<ProductsState, any> = {
 		// Update selected category
 		SET_SELECTED_CATEGORY(state, category) {
 			state.selectedCategoryId = category.id;
+		},
+		SET_SELECTED_SUBCATEGORY(state, categoryId) {
+			state.selectedSubCategoryId = categoryId;
 		},
 	},
 };
