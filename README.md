@@ -8,7 +8,7 @@ Certainly! Below is an updated version of the `README.md` that includes a sectio
 
 You can view the live version of the application deployed on Netlify at the following link:
 
-[Best Seller - E-Commerce](https://prismatic-crisp-best.netlify.app/products)
+[Best Seller - E-Commerce](https://best-seller-mgfe-vrob4qilh-shanhaider23s-projects.vercel.app/products)
 
 Explore the product listings and enjoy the dynamic features!
 
