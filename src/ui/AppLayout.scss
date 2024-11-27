@@ -26,20 +26,6 @@
 	}
 
 	&__sidebar {
-		position: absolute;
-		top: 0;
-		left: -250px; // Adjust width of the sidebar
-		width: 250px;
-		height: calc(100vh - 60px); // Full height minus header
-		background-color: #222; // Sidebar background
-		color: #fff;
-		padding: 16px;
-		transition: left 0.3s ease; // Smooth slide-in animation
-		z-index: 1001;
-
-		&--visible {
-			left: 0; // Visible state
-		}
 	}
 
 	&__content {

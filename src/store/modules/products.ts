@@ -39,8 +39,7 @@ const products: Module<ProductsState, any> = {
 			try {
 				// Simulating an API call to fetch products data from the local JSON
 				const response = await getApi('/data/data.json'); // Ensure the path is correct
-				console.log(response?.data.products);
-				// Check if the response is valid
+				console.log(response?.data);
 
 				commit('SET_PRODUCTS', response?.data?.products || []);
 				commit('SET_CATEGORIES', response?.data?.categories || []);
@@ -54,7 +53,6 @@ const products: Module<ProductsState, any> = {
 		},
 
 		setSelectedSubCategory({ commit }, categoryId) {
-			console.log('SET_SELECTED_SUB_CATEGORY', categoryId);
 			commit('SET_SELECTED_SUBCATEGORY', categoryId);
 		},
 	},

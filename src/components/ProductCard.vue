@@ -1,11 +1,11 @@
 <template>
-	<div class="border rounded-lg p-4 hover:shadow-lg">
-		<ProductImage :src="product.images" />
-		<h3 class="font-bold text-xl mt-2">
+	<div class="product-card">
+		<ProductImage :src="product.images" class="product-card__image" />
+		<h3 class="product-card__title">
 			{{ product.name.en || product.name.dk }}
 		</h3>
-		<ProductPrice :price="product.price" />
-		<router-link :to="`/product/${product.id}`" class="text-blue-500">
+		<ProductPrice :price="product.price" class="product-card__price" />
+		<router-link :to="`/product/${product.id}`" class="product-card__link">
 			View Details
 		</router-link>
 	</div>
@@ -31,3 +31,7 @@
 		},
 	});
 </script>
+
+<style scoped lang="scss">
+	@import '../scss/ProductCard.scss';
+</style>

@@ -1,5 +1,5 @@
 <template>
-	<p class="text-green-500 text-lg font-semibold">{{ price }} DKK</p>
+	<p class="product-price">{{ price }} DKK</p>
 </template>
 
 <script lang="ts">
@@ -15,3 +15,7 @@
 		},
 	});
 </script>
+
+<style scoped lang="scss">
+	@import '../scss/ProductPrice.scss';
+</style>

@@ -1,11 +1,13 @@
 <template>
 	<header class="header">
 		<div class="header__logo">
-			<img
-				src="../assets/logo.jpg"
-				alt="Product Image"
-				class="header__logo-image"
-			/>
+			<router-link to="/">
+				<img
+					src="../assets/logo.jpg"
+					alt="Product Image"
+					class="header__logo-image"
+				/>
+			</router-link>
 		</div>
 		<nav class="header__nav">
 			<ul class="header__nav-list">
@@ -67,6 +69,7 @@
 			},
 			selectCategory(category) {
 				this.selectCategoryInStore(category);
+				this.$emit('toggle-sidebar', true);
 			},
 		},
 		async mounted() {

@@ -1,0 +1,43 @@
+// Product Card component styles
+
+.product-card {
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	padding: 16px;
+	background-color: #fff;
+	transition: box-shadow 0.3s ease;
+
+	&:hover {
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	}
+
+	&__image {
+		width: 100%;
+		height: auto;
+		border-radius: 8px;
+	}
+
+	&__title {
+		font-size: 1.25rem;
+		font-weight: bold;
+		margin-top: 12px;
+		color: #333;
+	}
+
+	&__price {
+		font-size: 1rem;
+
+		margin-top: 8px;
+	}
+
+	&__link {
+		display: inline-block;
+		margin-top: 16px;
+		color: #1d72b8;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}

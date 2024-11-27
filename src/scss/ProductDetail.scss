@@ -1,0 +1,62 @@
+// Product Detail Styles (BEM)
+
+// Block: product-detail
+
+.product-detail__title {
+	font-size: 2rem; // 32px
+	font-weight: bold;
+}
+
+.product-detail__title--en {
+	color: gray;
+}
+
+.product-detail__brand {
+	margin-top: 0.5rem;
+	font-size: 1.125rem; // 18px
+	color: #4a4a4a;
+}
+
+.product-detail__images {
+	margin-top: 1rem;
+}
+
+.product-detail__description {
+	margin-top: 1rem;
+	font-size: 1rem; // 16px
+	color: #6b6b6b;
+}
+
+.product-detail__price {
+	margin-top: 1rem;
+	font-size: 1.25rem; // 20px
+	color: #38a169; // Green color
+	font-weight: 600;
+}
+
+.product-detail__stock {
+	margin-top: 0.5rem;
+	font-size: 1rem; // 16px
+	color: #7a7a7a;
+}
+
+.product-detail__variants {
+	margin-top: 2rem;
+}
+
+.product-detail__variants-title {
+	font-size: 1.25rem; // 20px
+	font-weight: bold;
+	color: #4a4a4a;
+}
+
+.product-detail__variants-list {
+	list-style-type: disc;
+	margin-left: 1.5rem;
+}
+
+.product-detail__variant {
+	margin-top: 0.5rem;
+	font-size: 1rem; // 16px
+	color: #4a4a4a;
+}

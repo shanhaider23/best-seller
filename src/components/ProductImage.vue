@@ -1,21 +1,31 @@
 <template>
-	<div class="product-image-carousel relative">
-		<div v-if="images.length > 0" class="carousel">
+	<div class="product-image-carousel">
+		<div v-if="images.length > 0" class="product-image-carousel__carousel">
 			<div
 				v-for="(image, index) in images"
 				:key="index"
-				:class="['carousel-item', { active: index === currentImage }]"
+				:class="[
+					'product-image-carousel__carousel-item',
+					{
+						'product-image-carousel__carousel-item--active':
+							index === currentImage,
+					},
+				]"
 			>
 				<img
 					:src="image"
 					alt="Product Image"
-					class="object-cover w-full h-full rounded-lg"
+					class="product-image-carousel__image"
 				/>
 			</div>
-			<button class="prev-button" @click="prevImage">❮</button>
-			<button class="next-button" @click="nextImage">❯</button>
+			<button class="product-image-carousel__prev-button" @click="prevImage">
+				❮
+			</button>
+			<button class="product-image-carousel__next-button" @click="nextImage">
+				❯
+			</button>
 		</div>
-		<div v-else class="no-image">
+		<div v-else class="product-image-carousel__no-image">
 			<p>No images available</p>
 		</div>
 	</div>
@@ -56,55 +66,6 @@
 	});
 </script>
 
-<style scoped>
-	.product-image-carousel {
-		position: relative;
-		width: 100%;
-		height: 300px; /* Adjust based on your design */
-		overflow: hidden;
-	}
-
-	.carousel {
-		display: flex;
-		position: relative;
-	}
-
-	.carousel-item {
-		display: none;
-		flex-shrink: 0;
-		width: 100%;
-		height: 100%;
-		transition: opacity 0.3s ease-in-out;
-	}
-
-	.carousel-item.active {
-		display: block;
-	}
-
-	button {
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-		background: rgba(0, 0, 0, 0.5);
-		color: white;
-		border: none;
-		cursor: pointer;
-		z-index: 10;
-	}
-
-	.prev-button {
-		left: 10px;
-	}
-
-	.next-button {
-		right: 10px;
-	}
-
-	.no-image {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 100%;
-		color: gray;
-	}
+<style scoped lang="scss">
+	@import '../scss/productImage.scss';
 </style>

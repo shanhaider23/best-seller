@@ -1,23 +1,15 @@
 <template>
-	<div>
-		<h1 class="text-2xl font-bold mb-4">Product List</h1>
-		{{ subCategoriesId }}
-
-		<!-- Show loading message if products are not loaded -->
-
-		<div v-if="products.length === 0">
+	<div class="product-list">
+		<div v-if="products.length === 0" class="product-list__loading">
 			<p>Loading products...</p>
 		</div>
 
-		<!-- Display products -->
-
-		<div
-			class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-		>
+		<div class="product-list__grid">
 			<ProductCard
 				v-for="product in filteredProducts"
 				:key="product.id"
 				:product="product"
+				class="product-list__card"
 			/>
 		</div>
 	</div>
@@ -65,6 +57,6 @@
 	});
 </script>
 
-<style scoped>
-	/* Optional: Add additional styles */
+<style scoped lang="scss">
+	@import '../scss/ProductList.scss';
 </style>
