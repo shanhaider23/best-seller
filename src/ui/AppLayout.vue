@@ -32,12 +32,10 @@
 		methods: {
 			toggleSidebar(visibility) {
 				this.isSidebarVisible = visibility;
-				console.log(this.isSidebarVisible);
 			},
 
 			closeSidebar() {
 				this.isSidebarVisible = false;
-				console.log(this.isSidebarVisible);
 			},
 		},
 	};

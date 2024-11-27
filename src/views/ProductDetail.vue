@@ -1,22 +1,29 @@
 <template>
 	<div v-for="product in products" :key="product.id">
 		<div v-if="product.id === parseInt(productId)">
+			<!-- Product Images -->
+			<div class="product-detail__images">
+				<ProductImage :src="product.images" />
+			</div>
 			<!-- Product Name -->
 			<h1 class="product-detail__title">
-				<span class="product-detail__title--en">{{ product.name.dk }}</span>
-				<span v-if="product.name.en" class="product-detail__title--en">
+				<span class="product-detail__title--dk">{{ product.name.dk }}</span>
+				<span
+					v-if="product.name.dk && product.name.en"
+					class="product-detail__title--en"
+				>
 					/ {{ product.name.en }}
+				</span>
+				<span
+					v-else-if="!product.name.dk && product.name.en"
+					class="product-detail__title--en"
+				>
+					{{ product.name.en }}
 				</span>
 			</h1>
 
 			<!-- Brand -->
 			<p class="product-detail__brand"><b>Brand:</b> {{ product.brand }}</p>
-
-			<!-- Product Images -->
-			<div class="product-detail__images">
-				<ProductImage :src="product.images" />
-			</div>
-
 			<p class="product-detail__description">
 				{{ product.description || 'No description available' }}
 			</p>
@@ -62,23 +69,23 @@
 			...mapGetters({
 				products: 'products/getProductById',
 			}),
-			productId() {
+			productId(): string {
 				return this.$route.params.id;
 			},
 		},
 		methods: {
-			fetchProductIfNeeded() {
-				if (!this.product) {
+			fetchProductIfNeeded(): void {
+				if (!this.products.length) {
 					this.$store.dispatch('products/fetchProducts');
 				}
 			},
 		},
-		mounted() {
+		mounted(): void {
 			this.fetchProductIfNeeded();
 		},
 	});
 </script>
 
 <style scoped lang="scss">
-	@import '../scss/ProductDetail.scss';
+	@use '../scss/ProductDetail.scss';
 </style>

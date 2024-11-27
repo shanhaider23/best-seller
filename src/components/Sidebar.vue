@@ -77,22 +77,17 @@
 		},
 		methods: {
 			...mapActions('products', {
-				selectSubCategoryIdStore: 'setSelectedSubCategory', // Correctly map Vuex action to `selectCategoryInStore`
+				selectSubCategoryIdStore: 'setSelectedSubCategory',
 			}),
 			triggerData() {
-				// Load the main categories from Vuex
 				this.data = this.mainCategories.categories;
-				//console.log(this.data[0]);
 			},
 
 			selectCategory(categoryId: string) {
-				// Dispatch category ID to Vuex
 				this.selectSubCategoryIdStore(categoryId);
 				console.log(`Category selected: ${categoryId}`);
 			},
 			closeSidebar() {
-				console.log('clicked');
-				// Emit event to the parent to close the sidebar
 				this.$emit('close-sidebar');
 			},
 		},

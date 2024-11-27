@@ -28,6 +28,7 @@
 <script lang="ts">
 	import { defineComponent } from 'vue';
 	import { mapActions, mapGetters } from 'vuex';
+	import { Category } from '@/types';
 
 	export default defineComponent({
 		name: 'Header',
@@ -49,7 +50,7 @@
 				fetchCategoriesFromStore: 'fetchProducts',
 				selectCategoryInStore: 'setSelectedCategory',
 			}),
-			async fetchCategories() {
+			async fetchCategories(): Promise<void> {
 				try {
 					await this.fetchCategoriesFromStore();
 					const rootCategory = this.$store.state.products.categories;
@@ -67,7 +68,7 @@
 					console.error('Error fetching categories:', error);
 				}
 			},
-			selectCategory(category) {
+			selectCategory(category: Category): void {
 				this.selectCategoryInStore(category);
 				this.$emit('toggle-sidebar', true);
 			},

@@ -1,46 +1,41 @@
 import { Module } from 'vuex';
-import { Product } from '@/types';
+import { Product, Category, PromotionSpot } from '@/types';
 import { getApi } from './../../api/getApi';
 
 interface ProductsState {
 	products: Product[];
+	categories: Category[];
+	promotions: PromotionSpot[];
+	selectedCategoryId: string | null;
+	selectedSubCategoryId: string | null;
 }
 
 const products: Module<ProductsState, any> = {
 	namespaced: true,
-	state: () => ({
+	state: (): ProductsState => ({
 		products: [],
 		categories: [],
-		selectedCategoryId: null,
 		promotions: [],
+		selectedCategoryId: null,
 		selectedSubCategoryId: null,
 	}),
 	getters: {
-		getProductById: (state) => state.products,
-		// getProductsByCategory: (state) => (categoryId: string) => {
-		// 	return state.products.filter((product) =>
-		// 		product.categories.includes(categoryId)
-		// 	);
-		// },
-		// Get all categories
-		vuexMainCategories: (state) => state.categories,
-		// Get promotions for display
-		getPromotions: (state) => state.promotions,
-		// Get subcategories for the selected category
-		vuexSubcategories: (state) => {
-			return state.selectedCategoryId;
-		},
-		vuexSubcategoriesIds: (state) => {
-			return state.selectedSubCategoryId;
-		},
+		getProductById: (state: ProductsState): Product[] => state.products,
+
+		vuexMainCategories: (state: ProductsState): Category[] => state.categories,
+
+		getPromotions: (state: ProductsState): PromotionSpot[] => state.promotions,
+
+		vuexSubcategories: (state: ProductsState): string | null =>
+			state.selectedCategoryId,
+
+		vuexSubcategoriesIds: (state: ProductsState): string | null =>
+			state.selectedSubCategoryId,
 	},
 	actions: {
-		async fetchProducts({ commit }) {
+		async fetchProducts({ commit }: { commit: Function }) {
 			try {
-				// Simulating an API call to fetch products data from the local JSON
-				const response = await getApi('/data/data.json'); // Ensure the path is correct
-				console.log(response?.data);
-
+				const response = await getApi('/data/data.json');
 				commit('SET_PRODUCTS', response?.data?.products || []);
 				commit('SET_CATEGORIES', response?.data?.categories || []);
 				commit('SET_PROMOTIONS', response?.data?.promotionalSpots || []);
@@ -48,30 +43,34 @@ const products: Module<ProductsState, any> = {
 				console.error('Error fetching products:', error);
 			}
 		},
-		setSelectedCategory({ commit }, category) {
+		setSelectedCategory(
+			{ commit }: { commit: Function },
+			category: { id: string }
+		) {
 			commit('SET_SELECTED_CATEGORY', category);
 		},
 
-		setSelectedSubCategory({ commit }, categoryId) {
+		setSelectedSubCategory(
+			{ commit }: { commit: Function },
+			categoryId: string
+		) {
 			commit('SET_SELECTED_SUBCATEGORY', categoryId);
 		},
 	},
 	mutations: {
-		SET_PRODUCTS(state, products: Product[]) {
+		SET_PRODUCTS(state: ProductsState, products: Product[]) {
 			state.products = products;
 		},
-		SET_CATEGORIES(state, categories: Category[]) {
+		SET_CATEGORIES(state: ProductsState, categories: Category[]) {
 			state.categories = categories;
 		},
-		// Store fetched promotions in state
-		SET_PROMOTIONS(state, promotions: Promotion[]) {
+		SET_PROMOTIONS(state: ProductsState, promotions: PromotionSpot[]) {
 			state.promotions = promotions;
 		},
-		// Update selected category
-		SET_SELECTED_CATEGORY(state, category) {
+		SET_SELECTED_CATEGORY(state: ProductsState, category: { id: string }) {
 			state.selectedCategoryId = category.id;
 		},
-		SET_SELECTED_SUBCATEGORY(state, categoryId) {
+		SET_SELECTED_SUBCATEGORY(state: ProductsState, categoryId: string) {
 			state.selectedSubCategoryId = categoryId;
 		},
 	},

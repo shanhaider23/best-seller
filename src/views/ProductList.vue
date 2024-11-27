@@ -5,6 +5,22 @@
 		</div>
 
 		<div class="product-list__grid">
+			<!-- Promotional Spots -->
+			<div
+				v-for="promo in promotions"
+				:key="promo.position"
+				:class="`product-list__promotion product-list__promotion--${promo.type}`"
+			>
+				<a :href="promo.link">
+					<img
+						:src="promo.image.imageUrl"
+						:alt="promo.image.alt"
+						class="product-list__promotion-image"
+					/>
+				</a>
+			</div>
+
+			<!-- Products -->
 			<ProductCard
 				v-for="product in filteredProducts"
 				:key="product.id"
@@ -28,13 +44,13 @@
 		computed: {
 			...mapState({
 				products: (state: any) => state.products.products,
+				promotions: (state: any) => state.products.promotions, // Fetch promotions from Vuex
 			}),
 			...mapGetters('products', {
 				mainCategories: 'vuexMainCategories',
 				subCategoriesId: 'vuexSubcategoriesIds',
 			}),
 			filteredProducts() {
-				// If no category is selected, return all products
 				if (!this.subCategoriesId) {
 					return this.products;
 				}
@@ -42,6 +58,18 @@
 				return this.products.filter((product) =>
 					product.categories.includes(this.subCategoriesId)
 				);
+			},
+			combinedItems() {
+				const combined = [...this.filteredProducts];
+
+				this.promotions.forEach((promotion) => {
+					const position = promotion.position - 1;
+					if (position >= 0 && position <= combined.length) {
+						combined.splice(position, 0, promotion);
+					}
+				});
+
+				return combined;
 			},
 		},
 		methods: {

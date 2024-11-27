@@ -2,9 +2,6 @@ import { createApp } from 'vue';
 import './index.css';
 import App from './App.vue';
 import router from './router';
-import store from './store'; // Make sure your Vuex store is imported
+import store from './store';
 
-createApp(App)
-	.use(router) // Add Vue Router
-	.use(store) // Add Vuex store
-	.mount('#app');
+createApp(App).use(router).use(store).mount('#app');
