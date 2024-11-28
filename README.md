@@ -10,6 +10,8 @@ You can view the live version of the application deployed on Netlify at the foll
 
 [Best Seller - E-Commerce](https://best-seller-mgfe-vrob4qilh-shanhaider23s-projects.vercel.app/products)
 
+![alt text](image.png)
+
 Explore the product listings and enjoy the dynamic features!
 
 Welcome to the Best Seller project! This is a modern e-commerce web application built with **Vue.js**, **Vuex**, and **TypeScript**. The application allows users to browse products, view product details, filter products by categories, and manage promotions, making it a great showcase of a dynamic product listing page (PLP), product detail page (PDP), and various features of an online store.
