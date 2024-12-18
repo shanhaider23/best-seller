@@ -102,5 +102,5 @@
 </script>
 
 <style lang="scss" scoped>
-	@use '../scss/Sidebar.scss';
+	@import '../scss/Sidebar.scss';
 </style>
